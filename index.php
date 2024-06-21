@@ -7,20 +7,8 @@ header('Content-Type: application/json');
 $requestUri = $_SERVER['REQUEST_URI'];
 $requestMethod = $_SERVER['REQUEST_METHOD'];
 
-// Definir rutas y controladores
-$routes = [
-    'GET' => [
-        '/' => 'HomeController@index',
-        '/users' => 'UsuariosControlador@index', // Ruta con middleware
-        '/users/(\d+)' => 'UsuariosControlador@show', // Ruta con parámetro de ID
-    ],
-    'POST' => [
-        '/users/create' => 'UserController@create',
-    ],
-    'DELETE' => [
-        '/users/(\d+)' => 'UserController@delete@authorized', // Ruta con parámetro de ID
-    ],
-];
+// Definir las rutas de la API
+require_once 'rutas.php';
 
 // Buscar la ruta y el controlador correspondiente
 $found = false;
@@ -65,8 +53,10 @@ foreach ($routes[$requestMethod] as $route => $handler) {
 
         $controller = 'controladores\\' . $controller;
 
+        $requestData = json_decode(file_get_contents('php://input'), true);
+
         $controller = new $controller();
-        echo $controller->$method(...$matches);
+        echo $controller->$method($requestData, ...$matches);
         break;
     }
 }

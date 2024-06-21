@@ -19,7 +19,7 @@ class UsuariosControlador
         ]);
     }
 
-    public function show($id)
+    public function show($requuest,$id)
     {
         $usario = new Usuario();
         $usuario = $usario->mostrarUsuario($id);

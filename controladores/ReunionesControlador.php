@@ -18,7 +18,7 @@ class ReuninesControlador
         ]);
     }
 
-    public function show($id_reunion){
+    public function show($requesr, $id_reunion){
 
         $reunion = new Reunion();
         $reunion = $reunion->mostrarReunion($id_reunion);

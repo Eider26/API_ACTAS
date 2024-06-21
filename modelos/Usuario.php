@@ -14,10 +14,17 @@ class Usuario extends Conexion
         parent::__construct();
     }
 
-    public function verificarUsuario($usuario, $contrasena)
+    public function obtenerUsuarioPorUsuario($usuario)
     {
-        /*$stmt = $this->getConexion()->prepare("SELECT contraseña FROM usuario WHERE usuario = :id");
-        $stmt->bindParam(':id', )*/
+        $sql = "SELECT * FROM usuario WHERE usuario = :usuario";
+
+        $stmt = $this->getConexion()->prepare($sql);
+
+        $stmt->bindValue(':usuario', $usuario);
+
+        $stmt->execute();
+
+        return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
     public function registrarUsuario($nombre, $correo, $usuario, $contrasena, $rol)
@@ -35,7 +42,7 @@ class Usuario extends Conexion
         $stmt->execute();
     }
 
-   
+
     public function listarUsuario()
     {
         $sql = "SELECT * FROM usuario";
@@ -85,5 +92,5 @@ class Usuario extends Conexion
         $stmt->bindParam(':id_usuario', $id_usuario);
 
         $stmt->execute();
-    } 
+    }
 }

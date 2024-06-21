@@ -2,10 +2,9 @@
 
 $routes = [
     'GET' => [
-        '/' => 'HomeController@index',
         '/users' => 'UsuariosControlador@index', // Ruta con middleware
         '/users/(\d+)' => 'UsuariosControlador@show', // Ruta con parámetro de ID
-        '/actas' => 'ActasControlador@index',
+        '/actas' => 'ActasControlador@index@authorized',
         '/actas/(\d+)' => 'ActasControlador@show',
     ],
     'POST' => [

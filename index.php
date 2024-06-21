@@ -1,5 +1,13 @@
 <?php
 
+require './vendor/autoload.php';
+require './modelos/Jwt.php';
+
+use \modelos\Jwt;
+
+$dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
+$dotenv->load();
+
 
 header('Content-Type: application/json');
 
@@ -18,27 +26,35 @@ foreach ($routes[$requestMethod] as $route => $handler) {
         $found = true;
         array_shift($matches); // Eliminar el primer elemento que es la cadena completa coincidente
 
-        list($controller, $method) = explode('@', $handler);
+        list($controller, $method, $authorized) = explode('@', $handler);
 
-        /* Verificar si la ruta requiere autorización
-        if (strpos($method, 'authorized') !== false) {
-            // Eliminar el marcador @authorized del método
-            $method = str_replace('@authorized', '', $method);
-
+        //Verificar si la ruta requiere autorización
+        if ($authorized !== null) {
+        
             // Validar el JWT del encabezado Authorization
             $authHeader = $_SERVER['HTTP_AUTHORIZATION'] ?? '';
+
             if (!$authHeader || !preg_match('/Bearer\s(\S+)/', $authHeader, $tokenMatch)) {
                 http_response_code(401);
-                echo "401 Unauthorized";
+                echo json_encode([
+                    'message' => '401 Unauthorized'
+                ]);
                 exit;
             }
-            $jwt = $tokenMatch[1];
-            if (!validateJWT($jwt)) {
+
+            try {
+
+                $jwt = new Jwt($_ENV["SECRET_KEY"]);
+
+                $jwt->decode($tokenMatch[1]);
+    
+            } catch (Exception $e) {
+    
                 http_response_code(401);
-                echo "401 Unauthorized";
-                exit;
+                echo json_encode(["message" => $e->getMessage() ]);
+                exit();
             }
-        }*/
+        }
 
         // Incluir el controlador dinámicamente
         $controllerFile = './controladores/' . $controller . '.php';

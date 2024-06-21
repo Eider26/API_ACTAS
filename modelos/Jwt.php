@@ -3,6 +3,7 @@
 namespace modelos;
 
 use Error;
+use Exception;
 
 class Jwt
 {
@@ -34,20 +35,20 @@ class Jwt
                 $matches
             ) !== 1
         ) {
-            throw new Error("invalid token format");
+            throw new Exception("invalid token format");
         }
 
         $signature = hash_hmac('sha256', "$matches[header].$matches[payload]", $this->key, true);
 
         if (!hash_equals($signature, $this->base64UrlDecode($matches['signature']))) {
-            throw new Error("invalid token");
+            throw new Exception("invalid token");
         }
 
         $payload = json_decode($this->base64UrlDecode($matches['payload']), true);
 
 
         if($payload['exp'] < time()){
-            throw new Error('Token expired');
+            throw new Exception('Token expired');
         }
 
         return $payload;

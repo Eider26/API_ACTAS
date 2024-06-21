@@ -2,6 +2,11 @@
 
 namespace modelos;
 
+
+require_once 'Conexion.php';
+
+use PDO;
+
 class Usuario extends Conexion
 {
 
@@ -14,20 +19,19 @@ class Usuario extends Conexion
     {
         /*$stmt = $this->getConexion()->prepare("SELECT contraseña FROM usuario WHERE usuario = :id");
         $stmt->bindParam(':id', )*/
-        
     }
 
     public function registrarUsuario($nombre, $correo, $usuario, $contrasena, $rol)
     {
-        $sql = "INSERT INTO usuarios(nombre, rol, usuario, correo, contraseña) VALUES (:nombre, :rol, :usuario, :correo, :contraseña)";
+        $sql = "INSERT INTO usuario(nombre, rol, usuario, correo, contrasena) VALUES (:nombre, :rol, :usuario, :correo, :contrasena)";
 
         $stmt = $this->getConexion()->prepare($sql);
 
-        $stmt->bindParam(':nombre', $nombre);
-        $stmt->bindParam(':correo', $correo);
-        $stmt->bindParam(':usuario', $usuario);
-        $stmt->bindParam(':contrasena', $contrasena);
-        $stmt->bindParam(':rol', $rol);
+        $stmt->bindValue(':nombre', $nombre);
+        $stmt->bindValue(':correo', $correo);
+        $stmt->bindValue(':usuario', $usuario);
+        $stmt->bindValue(':contrasena', $contrasena);
+        $stmt->bindValue(':rol', $rol);
 
         $stmt->execute();
     }

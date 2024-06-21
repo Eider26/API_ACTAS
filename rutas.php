@@ -9,8 +9,10 @@ $routes = [
         '/actas/(\d+)' => 'ActasControlador@show',
     ],
     'POST' => [
+        '/login' => 'AuthControlador@login',
+        '/register' => 'AuthControlador@register',
+        '/actas' => 'ActasControlador@store',
         '/users/create' => 'UserController@create',
-        '/actas' => 'ActasControlador@store'
     ],
     'PUT' => [
         '/actas/(\d+)' => 'ActasControlador@update',

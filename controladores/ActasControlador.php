@@ -21,7 +21,7 @@ class ActasControlador
         ]);
     }
 
-    public function show($id)
+    public function show($request, $id)
     {
         $acta = new Acta();
         $acta = $acta->mostrarActa($id);
@@ -52,10 +52,17 @@ class ActasControlador
         ]);
     }
 
-    public function update($id, $id_reunion, $id_usuario, $descripcion)
+    public function update($request, $id)
     {
         $acta = new Acta();
-        $acta->actualizarActa($id, $id_reunion, $id_usuario, $descripcion);
+
+        $acta->actualizarActa(
+            $request['tema'], 
+            $request['contenido'], 
+            $request['tipo'], 
+            $request['id_reunion'], 
+            $id
+        );
 
         http_response_code(200);
         return json_encode([
@@ -64,7 +71,7 @@ class ActasControlador
         ]);
     }
 
-    public function destroy($id)
+    public function destroy($request, $id)
     {
         $acta = new Acta();
         $acta->eliminarActa($id);

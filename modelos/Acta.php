@@ -30,7 +30,7 @@ class Acta extends Conexion
 
     public function listarActas()
     {
-        $sql = "SELECT * FROM actas";
+        $sql = "SELECT * FROM acta";
 
         $stmt = $this->getConexion()->prepare($sql);
 
@@ -41,7 +41,7 @@ class Acta extends Conexion
 
     public function mostrarActa($id)
     {
-        $sql = "SELECT * FROM actas WHERE id = :id";
+        $sql = "SELECT * FROM acta WHERE id_acta = :id";
 
         $stmt = $this->getConexion()->prepare($sql);
 
@@ -52,27 +52,29 @@ class Acta extends Conexion
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
-    public function actualizarActa($id, $id_reunion, $id_usuario, $descripcion)
+    public function actualizarActa($tema, $contenido, $tipo, $id_reunion, $id)
     {
-        $sql = "UPDATE actas SET id_reunion = :id_reunion, id_usuario = :id_usuario, descripcion = :descripcion WHERE id = :id";
+        $sql = "UPDATE acta SET tema = :tema, contenido = :contenido, tipo = :tipo, id_reunion = :id_reunion WHERE id_acta = :acta_id";
 
         $stmt = $this->getConexion()->prepare($sql);
 
-        $stmt->bindParam(':id', $id);
+        $stmt->bindParam(':tema', $tema);
+        $stmt->bindParam(':contenido', $contenido);
+        $stmt->bindParam(':tipo', $tipo);
         $stmt->bindParam(':id_reunion', $id_reunion);
-        $stmt->bindParam(':id_usuario', $id_usuario);
-        $stmt->bindParam(':descripcion', $descripcion);
+        $stmt->bindParam(':acta_id', $id);
+
 
         $stmt->execute();
     }
 
     public function eliminarActa($id)
     {
-        $sql = "DELETE FROM actas WHERE id = :id";
+        $sql = "DELETE FROM acta WHERE id_acta = :id_acta";
 
         $stmt = $this->getConexion()->prepare($sql);
 
-        $stmt->bindParam(':id', $id);
+        $stmt->bindParam(':id_acta', $id);
 
         $stmt->execute();
     }

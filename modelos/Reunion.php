@@ -2,6 +2,9 @@
 
 namespace modelos;
 
+require_once 'Conexion.php';
+
+
 use PDO;
 
 class Reunion extends Conexion
@@ -14,12 +17,13 @@ class Reunion extends Conexion
         parent::__construct();
     }
 
-    public function agregarReunion($fecha, $hora_inicio, $hora_finalizacion, $lugar, $estado,$id_usuario)
+    public function agregarReunion($titulo, $fecha, $hora_inicio, $hora_finalizacion, $lugar, $estado, $id_usuario)
     {
-        $sql = "INSERT INTO reunion(fecha, hora_inicio, hora_finalizacion, lugar, estado, id_usuario) VALUES (:fecha, :hora_inicio, :hora_finalizacion, :lugar, :estado, :id_usuario)";
+        $sql = "INSERT INTO reunion(titulo, fecha, hora_inicio, hora_finalizacion, lugar, estado, id_usuario) VALUES (:titulo, :fecha, :hora_inicio, :hora_finalizacion, :lugar, :estado, :id_usuario)";
 
         $stmt = $this->getConexion()->prepare($sql);
 
+        $stmt->bindParam(':titulo', $titulo);
         $stmt->bindParam(':fecha', $fecha);
         $stmt->bindParam(':hora_inicio', $hora_inicio);
         $stmt->bindParam(':hora_finalizacion', $hora_finalizacion);

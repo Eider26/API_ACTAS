@@ -1,9 +1,11 @@
 <?php
 namespace controladores;
 
+require_once 'modelos/Reunion.php';
+
 use modelos\Reunion;
 
-class ReuninesControlador 
+class ReunionesControlador 
 {
     public function index(){
 
@@ -35,12 +37,14 @@ class ReuninesControlador
     public function store($requestData)
     {
         $reunion = new Reunion();
+
+        //$titulo, $fecha, $hora_inicio, $hora_finalizacion, $lugar, $estado, $id_usuario
         
         $reunion->agregarReunion(
-            $requestData['id_reuinion'], 
-            $requestData['fecha'], 
+            $requestData['titulo'],
+            $requestData['fecha'],  
             $requestData['hora_inicio'],
-            $requestData['hora_finalizacion'].
+            $requestData['hora_finalizacion'],
             $requestData['lugar'],
             $requestData['estado'],
             $requestData['id_usuario']

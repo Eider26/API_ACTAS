@@ -2,6 +2,7 @@
 
 $routes = [
     'GET' => [
+        '/auth/user' => 'AuthControlador@getAuthUser@authorized',
         '/users' => 'UsuariosControlador@index', // Ruta con middleware
         '/users/(\d+)' => 'UsuariosControlador@show', // Ruta con parámetro de ID
         '/actas' => 'ActasControlador@index@authorized',
@@ -12,6 +13,7 @@ $routes = [
         '/register' => 'AuthControlador@register',
         '/actas' => 'ActasControlador@store',
         '/users/create' => 'UserController@create',
+        '/reuniones' => 'ReunionesControlador@store',
     ],
     'PUT' => [
         '/actas/(\d+)' => 'ActasControlador@update',

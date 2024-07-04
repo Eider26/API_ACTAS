@@ -10,6 +10,29 @@ use modelos\Usuario;
 
 class AuthControlador
 {
+
+    public function getAuthUser()
+    {
+        $jwt = new Jwt($_ENV["SECRET_KEY"]);
+
+        $authHeader = $_SERVER['HTTP_AUTHORIZATION'];
+
+        preg_match('/Bearer\s(\S+)/', $authHeader, $tokenMatch);
+
+        $payload = $jwt->decode($tokenMatch[1]);
+
+        $usuario = new Usuario();
+
+        $usuario = $usuario->mostrarUsuario($payload['sub']);
+
+        http_response_code(200);
+        return json_encode([
+            'status' => 200,
+            'message' => 'Usuario autenticado',
+            'data' => $usuario
+        ]);
+    }
+
     public function login($request)
     {
 
@@ -24,7 +47,7 @@ class AuthControlador
                 'message' => 'Usuario no encontrado'
             ]);
         }
-    
+
         if (!password_verify($request['contrasena'], $usuario['contrasena'])) {
             http_response_code(401);
             return json_encode([
@@ -58,8 +81,7 @@ class AuthControlador
             $request['nombre'],
             $request['correo'],
             $request['usuario'],
-            password_hash($request['contrasena'], PASSWORD_DEFAULT),
-            $request['rol']
+            password_hash($request['contrasena'], PASSWORD_DEFAULT)
         );
 
         http_response_code(200);

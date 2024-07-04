@@ -27,7 +27,7 @@ class Usuario extends Conexion
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
-    public function registrarUsuario($nombre, $correo, $usuario, $contrasena, $rol)
+    public function registrarUsuario($nombre, $correo, $usuario, $contrasena)
     {
         $sql = "INSERT INTO usuario(nombre, rol, usuario, correo, contrasena) VALUES (:nombre, :rol, :usuario, :correo, :contrasena)";
 
@@ -37,7 +37,6 @@ class Usuario extends Conexion
         $stmt->bindValue(':correo', $correo);
         $stmt->bindValue(':usuario', $usuario);
         $stmt->bindValue(':contrasena', $contrasena);
-        $stmt->bindValue(':rol', $rol);
 
         $stmt->execute();
     }

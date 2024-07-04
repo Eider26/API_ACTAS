@@ -2,7 +2,7 @@
 
 namespace modelos;
 
-use Error;
+
 use Exception;
 
 class Jwt

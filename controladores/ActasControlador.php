@@ -82,4 +82,16 @@ class ActasControlador
             'message' => 'Acta eliminada'
         ]);
     }
+    public function getBYReunion ($requesr, $id_reunion){
+
+        $acta = new Acta();
+        $actadata = $acta->getBYReunion($id_reunion);
+
+        http_response_code(200);
+        return json_encode([
+            'status' => 200,
+            'message' => 'actas con ID: ' . $id_reunion,
+            'data' => $actadata
+        ]);
+    }
 }

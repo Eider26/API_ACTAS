@@ -78,4 +78,24 @@ class Acta extends Conexion
 
         $stmt->execute();
     }
+    public function getBYReunion($id_reunion)
+    {
+        // Definir la consulta SQL
+        $sql = "SELECT * FROM acta WHERE id_reunion = :id_reunion";
+    
+        // Preparar la consulta
+        $stmt = $this->getConexion()->prepare($sql);
+    
+        // Vincular el parámetro id_reunion
+        $stmt->bindParam(':id_reunion', $id_reunion);
+    
+        // Ejecutar la consulta
+        $stmt->execute();
+    
+        // Obtener los resultados como un array asociativo
+        $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    
+        // Retornar los resultados
+        return $result;
+    }
 }       

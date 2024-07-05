@@ -11,7 +11,7 @@ $routes = [
         '/actas/(\d+)' => 'ActasControlador@show@authorized',
         '/actas/reuniones/(\d+)' => 'ActasControlador@getBYReunion',
         '/compromisos'=>'CompromisosControlador@index',
-        '/compromisos/\d+)'=>'CompromisosControlador@show',
+        '/compromisos/(\d+)'=>'CompromisosControlador@show',
         '/compromisos/acta/(\d+)' => 'CompromisosControlador@getBYActa',
     ],
     'POST' => [
@@ -32,5 +32,6 @@ $routes = [
         '/users/(\d+)' => 'UserController@delete@authorized', // Ruta con parámetro de ID
         '/actas/(\d+)' => 'ActasControlador@destroy',
         '/reuniones/(\d+)' => 'ReunionesControlador@destroy@authorized',
+        '/compromisos/(\d+)'=>'CompromisosControlador@destroy@authorized',
     ],
 ];

@@ -72,7 +72,7 @@ class CompromisosControlador
         ]);
     }
 
-    public function destroy($id)
+    public function destroy($request, $id)
     {
         $compromiso = new Compromiso();
         $compromiso->eliminarCompromiso($id);

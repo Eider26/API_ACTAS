@@ -82,25 +82,26 @@ class Compromiso extends Conexion
 
         $stmt->execute();
     }
+
+    
     public function getByActa($id_acta)
-{
-    // Definir la consulta SQL
-    $sql = "SELECT * FROM compromiso WHERE id_acta = :id_acta";
+    {
+        // Definir la consulta SQL
+        $sql = "SELECT * FROM compromiso WHERE id_acta = :id_acta";
 
-    // Preparar la consulta
-    $stmt = $this->getConexion()->prepare($sql);
+        // Preparar la consulta
+        $stmt = $this->getConexion()->prepare($sql);
 
-    // Vincular el parámetro id_acta
-    $stmt->bindParam(':id_acta', $id_acta);
+        // Vincular el parámetro id_acta
+        $stmt->bindParam(':id_acta', $id_acta);
 
-    // Ejecutar la consulta
-    $stmt->execute();
+        // Ejecutar la consulta
+        $stmt->execute();
 
-    // Obtener los resultados como un array asociativo
-    $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        // Obtener los resultados como un array asociativo
+        $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-    // Retornar los resultados
-    return $result;
-}
-
+        // Retornar los resultados
+        return $result;
+    }
 }

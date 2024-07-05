@@ -57,11 +57,12 @@ class CompromisosControlador
         $compromiso = new Compromiso();
 
         $compromiso->actualizarCompromiso(
+            $id,
             $request['descripcion'], 
             $request['fecha_limite'], 
             $request['estado'],
             $request['id_acta'],
-            $id
+           
         );
 
         http_response_code(200);

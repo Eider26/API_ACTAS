@@ -54,7 +54,12 @@ class Compromiso extends Conexion
 
     public function actualizarCompromiso($id, $descripcion, $fecha_limite, $estado, $id_acta)
     {
-        $sql = "UPDATE compromiso SET descripcion = :descripcion, fecha_limite = :fecha_limite, estado = :estado, id_acta = :id_acta WHERE id_compromiso = :id_compromiso";
+        $sql = "UPDATE compromiso SET 
+                    descripcion = :descripcion, 
+                    fecha_limite = :fecha_limite, 
+                    estado = :estado, 
+                    id_acta = :id_acta 
+                WHERE id_compromiso = :id_compromiso";
 
         $stmt = $this->getConexion()->prepare($sql);
 

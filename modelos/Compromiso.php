@@ -16,7 +16,7 @@ class Compromiso extends Conexion
 
     public function agregarCompromiso($descripcion, $fecha_limite, $estado, $id_acta)
     {
-        $sql = "INSERT INTO compromiso(descripcion, fecha_limite, estado, id_acta) VALUES (:descripcion, :fecha_limite, :estdo, :id_acta)";
+        $sql = "INSERT INTO compromiso(descripcion, fecha_limite, estado, id_acta) VALUES (:descripcion, :fecha_limite, :estado, :id_acta)";
 
         $stmt = $this->getConexion()->prepare($sql);
 
@@ -52,17 +52,17 @@ class Compromiso extends Conexion
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
-    public function actualizarCompromiso($descripcion, $fecha_limite, $estado, $id_acta)
+    public function actualizarCompromiso($id, $descripcion, $fecha_limite, $estado, $id_acta)
     {
-        $sql = "UPDATE compromiso SET descripcion = :descripcion, fecha_limite = :fecha_limite, estao = :estdo, id_acta = :id_acta WHERE id_compromiso = :id_compromiso";
+        $sql = "UPDATE compromiso SET descripcion = :descripcion, fecha_limite = :fecha_limite, estado = :estado, id_acta = :id_acta WHERE id_compromiso = :id_compromiso";
 
         $stmt = $this->getConexion()->prepare($sql);
 
         $stmt->bindParam(':descripcion', $descripcion);
         $stmt->bindParam(':fecha_limite', $fecha_limite);
         $stmt->bindParam(':estado', $estado);
-        $stmt->bindParam(':id_compromiso', $id_compromiso);
-        
+        $stmt->bindParam(':id_acta', $id_acta);
+        $stmt->bindParam(':id_compromiso', $id);
 
         $stmt->execute();
     }

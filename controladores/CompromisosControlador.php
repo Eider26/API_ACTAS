@@ -2,6 +2,8 @@
 
 namespace controladores;
 
+require_once 'modelos/Compromiso.php';
+
 use modelos\Compromiso;
 
 class CompromisosControlador 
@@ -50,10 +52,17 @@ class CompromisosControlador
         ]);
     }
 
-    public function update($descripcion, $fecha_limite, $estado, $id_acta)
+    public function update($request,$id)
     {
         $compromiso = new Compromiso();
-        $compromiso->actualizarCompromiso($descripcion, $fecha_limite, $estado, $id_acta);
+        
+        $compromiso->actualizarCompromiso(
+            $request['descripcion'], 
+            $request['fecha_limite'], 
+            $request['estado'],
+            $request['id_acta'],
+            $id
+        );
 
         http_response_code(200);
         return json_encode([

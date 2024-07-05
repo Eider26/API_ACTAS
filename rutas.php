@@ -10,6 +10,8 @@ $routes = [
         '/reuniones/(\d+)' => 'ReunionesControlador@show@authorized',
         '/actas/(\d+)' => 'ActasControlador@show@authorized',
         '/actas/reuniones/(\d+)' => 'ActasControlador@getBYReunion',
+        '/compromisos'=>'CompromisosControlador@index',
+        '/compromisos/\d+)'=>'CompromisosControlador@show',
     ],
     'POST' => [
         '/login' => 'AuthControlador@login',
@@ -17,10 +19,12 @@ $routes = [
         '/actas' => 'ActasControlador@store',
         '/users/create' => 'UserController@create',
         '/reuniones' => 'ReunionesControlador@store',
+        '/compromisos'=> 'CompromisosControlador@store',
     ],
     'PUT' => [
         '/actas/(\d+)' => 'ActasControlador@update',
         '/reuniones/(\d+)' => 'ReunionesControlador@update@authorized',
+        '/compromisos/(\d+)'=>'CompromisosControlador@update@authorized',
 
     ],
     'DELETE' => [

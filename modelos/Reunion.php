@@ -4,7 +4,6 @@ namespace modelos;
 
 require_once 'Conexion.php';
 
-
 use PDO;
 
 class Reunion extends Conexion

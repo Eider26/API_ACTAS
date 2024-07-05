@@ -69,15 +69,17 @@ class ReunionesControlador
         ]);
     }
 
-    public function destroy($id_reunion)
+    public function destroy($requestData, $id_reunion)
     {
         $reunion = new Reunion();
+
         $reunion->eliminarReunion($id_reunion);
 
         http_response_code(200);
         return json_encode([
             'status' => 200,
-            'message' => 'Reunion eliminada'
+            'message' => 'Reunion eliminada',
+            'id' => $id_reunion
         ]);
     }
 }

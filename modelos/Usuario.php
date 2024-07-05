@@ -29,7 +29,7 @@ class Usuario extends Conexion
 
     public function registrarUsuario($nombre, $correo, $usuario, $contrasena)
     {
-        $sql = "INSERT INTO usuario(nombre, rol, usuario, correo, contrasena) VALUES (:nombre, :rol, :usuario, :correo, :contrasena)";
+        $sql = "INSERT INTO usuario(nombre, usuario, correo, contrasena) VALUES (:nombre, :usuario, :correo, :contrasena)";
 
         $stmt = $this->getConexion()->prepare($sql);
 
@@ -66,18 +66,18 @@ class Usuario extends Conexion
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
-    public function actualizarUsuario($nombre, $correo, $usuario, $contrasena, $rol)
+    public function actualizarUsuario($nombre, $correo, $usuario, $contrasena)
     {
-        $sql = "UPDATE usuario SET nombre = :nombre, correo = :correo, usuario = :usuario, contrseña = :contrasena, rol = :rol WHERE id_usuario = :id_usuario";
+        $sql = "UPDATE usuario SET nombre = :nombre, correo = :correo, usuario = :usuario, contrseña = :contrasena, WHERE id_usuario = :id_usuario";
 
         $stmt = $this->getConexion()->prepare($sql);
 
-        $stmt->bindParam(':id_usuario', $id_usuario);
+       
         $stmt->bindParam(':nombre', $nombre);
         $stmt->bindParam(':corre', $correo);
         $stmt->bindParam(':usuario', $usuario);
         $stmt->bindParam(':contraseña', $contrasena);
-        $stmt->bindParam(':rol', $rol);
+     
 
         $stmt->execute();
     }

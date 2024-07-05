@@ -7,7 +7,7 @@ $routes = [
         '/users/(\d+)' => 'UsuariosControlador@show', // Ruta con parámetro de ID
         '/actas' => 'ActasControlador@index@authorized',//por defecto para el methdo get
         '/reuniones' => 'ReunionesControlador@index@authorized',
-        '/reuniones/(\d+)' => 'ReunionesControlador@index@authorized',
+        '/reuniones/(\d+)' => 'ReunionesControlador@show@authorized',
         '/actas/(\d+)' => 'ActasControlador@show@authorized',
     ],
     'POST' => [

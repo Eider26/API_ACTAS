@@ -49,7 +49,7 @@ class Reunion extends Conexion
 
         $stmt = $this->getConexion()->prepare($sql);
 
-        $stmt->bindParam(':id', $id_reunion);
+        $stmt->bindParam(':id_reunion', $id_reunion);
 
         $stmt->execute();
 

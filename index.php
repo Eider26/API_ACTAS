@@ -16,6 +16,7 @@ if($_SERVER['REQUEST_METHOD'] === 'OPTIONS'){
     exit;
 }   
 
+error_reporting(0);
 
 header('Content-Type: application/json');
 

@@ -55,9 +55,9 @@ class Reunion extends Conexion
 
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
-    public function actualizarReunion($fecha, $hora_inicio, $hora_finalizacion, $lugar, $estado,$id_usuario)
+    public function actualizarReunion($id_reunion, $fecha, $hora_inicio, $hora_finalizacion, $lugar, $estado, $id_usuario, $titulo)
     {
-        $sql = "UPDATE reunion SET fecha = :fecha, hora_inicio = :hora_inicio, hora_finalizacion = :hora_finalizacion, lugar = :lugar, estado = :estado, id_usuario = :id_usario WHERE id_reunion = :id_reunion";
+        $sql = "UPDATE reunion SET fecha = :fecha, hora_inicio = :hora_inicio, hora_finalizacion = :hora_finalizacion, lugar = :lugar, estado = :estado, id_usuario = :id_usuario, titulo = :titulo WHERE id_reunion = :id_reunion";
 
         $stmt = $this->getConexion()->prepare($sql);
     
@@ -68,6 +68,7 @@ class Reunion extends Conexion
         $stmt->bindParam(':lugar', $lugar);
         $stmt->bindParam(':estado', $estado);
         $stmt->bindParam(':id_usuario', $id_usuario);
+        $stmt->bindParam(':titulo', $titulo);
     
         $stmt->execute();
     }

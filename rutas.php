@@ -7,7 +7,8 @@ $routes = [
         '/users/(\d+)' => 'UsuariosControlador@show', // Ruta con parámetro de ID
         '/actas' => 'ActasControlador@index@authorized',//por defecto para el methdo get
         '/reuniones' => 'ReunionesControlador@index@authorized',
-        '/actas/(\d+)' => 'ActasControlador@show',
+        '/reuniones/(\d+)' => 'ReunionesControlador@index@authorized',
+        '/actas/(\d+)' => 'ActasControlador@show@authorized',
     ],
     'POST' => [
         '/login' => 'AuthControlador@login',
@@ -18,6 +19,8 @@ $routes = [
     ],
     'PUT' => [
         '/actas/(\d+)' => 'ActasControlador@update',
+        '/reuniones/(\d+)' => 'ReunionesControlador@update@authorized',
+
     ],
     'DELETE' => [
         '/users/(\d+)' => 'UserController@delete@authorized', // Ruta con parámetro de ID

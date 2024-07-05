@@ -57,10 +57,21 @@ class ReunionesControlador
         ]);
     }
 
-    public function update( $fecha, $hora_inicio, $hora_finalizacion, $lugar, $estado,$id_usuario)
+ 
+    public function update($requestData, $id_reunion)
     {
         $reunion = new Reunion();
-        $reunion->actualizarReunion( $fecha, $hora_inicio, $hora_finalizacion, $lugar, $estado,$id_usuario);
+
+        $reunion->actualizarReunion(
+            $id_reunion,
+            $requestData['fecha'],
+            $requestData['hora_inicio'],
+            $requestData['hora_finalizacion'],
+            $requestData['lugar'],
+            $requestData['estado'],
+            $requestData['id_usuario'],
+            $requestData['titulo']
+        );
 
         http_response_code(200);
         return json_encode([
@@ -68,6 +79,7 @@ class ReunionesControlador
             'message' => 'Reunion actualizada'
         ]);
     }
+   
 
     public function destroy($requestData, $id_reunion)
     {

@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.0
+-- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
--- Servidor: 127.0.0.1
--- Tiempo de generación: 21-06-2024 a las 19:45:28
--- Versión del servidor: 10.4.24-MariaDB
--- Versión de PHP: 8.1.6
+-- Servidor: localhost
+-- Tiempo de generación: 05-07-2024 a las 16:57:35
+-- Versión del servidor: 10.4.32-MariaDB
+-- Versión de PHP: 8.2.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -33,7 +33,7 @@ CREATE TABLE `acta` (
   `contenido` text NOT NULL,
   `tipo` enum('publica','privada') NOT NULL,
   `id_reunion` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -44,7 +44,7 @@ CREATE TABLE `acta` (
 CREATE TABLE `acta_usuario` (
   `id_acta` int(11) NOT NULL,
   `id_usuario` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -58,7 +58,7 @@ CREATE TABLE `compromiso` (
   `fecha_limite` date NOT NULL,
   `estado` enum('pendiente','completado') NOT NULL,
   `id_acta` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -69,7 +69,7 @@ CREATE TABLE `compromiso` (
 CREATE TABLE `compromiso_usuario` (
   `id_compromiso` int(11) NOT NULL,
   `id_usuario` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -82,7 +82,7 @@ CREATE TABLE `documento` (
   `nombre` varchar(255) NOT NULL,
   `ruta` varchar(255) NOT NULL,
   `id_acta` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -96,9 +96,17 @@ CREATE TABLE `reunion` (
   `hora_inicio` time NOT NULL,
   `hora_finalizacion` time NOT NULL,
   `lugar` varchar(255) NOT NULL,
-  `estado` enum('programada','reprogramada') NOT NULL,
-  `id_usuario` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+  `estado` enum('programada','finalizada') NOT NULL,
+  `id_usuario` int(11) NOT NULL,
+  `titulo` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `reunion`
+--
+
+INSERT INTO `reunion` (`id_reunion`, `fecha`, `hora_inicio`, `hora_finalizacion`, `lugar`, `estado`, `id_usuario`, `titulo`) VALUES
+(9, '2024-07-04', '19:03:00', '19:03:00', 'lugar', 'finalizada', 26, 'titulo');
 
 -- --------------------------------------------------------
 
@@ -110,22 +118,23 @@ CREATE TABLE `usuario` (
   `id_usuario` int(11) NOT NULL,
   `nombre` varchar(100) NOT NULL,
   `correo` varchar(100) NOT NULL,
-  `rol` enum('admin','invitado') NOT NULL,
   `usuario` varchar(50) NOT NULL,
-  `contraseña` varchar(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+  `contrasena` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `usuario`
 --
 
-INSERT INTO `usuario` (`id_usuario`, `nombre`, `correo`, `rol`, `usuario`, `contraseña`) VALUES
-(26, 'eider', 'barriosvviis44@gmail.com', '', 'eider21', '$2y$10$6eYPOs.6egeh9e8Gh5YuneO6TxPZVxjSYSuzcC4.KKMWTDcB19HHC'),
-(27, 'luis rambao', 'luisito@gmail.com', 'admin', 'luisi24', '$2y$10$z/8ZnWK0OW1zlnq9s1z7Eu.SevDSGDcq2CjhWzvyAd5rQpIYtkGxK'),
-(29, 'MATEO MARTINEZ', 'mateito@gmail.com', 'admin', 'sincelejo', '$2y$10$cdOIBri7OKff3TlwWIQVIesm/Ghnww5j6/ZyO/brpRp2TpD0AZieK'),
-(30, 'dana', 'dana@gmail.com', 'invitado', 'dana', '$2y$10$GiIRAuLJ3Gu/Z5/6hhNfK..WvzMVwRWVTuV30fWvN6cGHuzN.ZxIm'),
-(40, 'marolyn', 'maro@gmail.com', 'invitado', 'maro12', '$2y$10$HTA969fJ9mKxy18/FmseheSWQk/AujvF9Xc8Ico6Pw.ZHoE8ORfTq'),
-(41, 'll', 'll@gmail.com', 'admin', 'llll', '$2y$10$7d7UEGQSo4knGjC1eSfzQe0T9zefpJ9S5/EY1b0lhBhWfn.jQh/O.');
+INSERT INTO `usuario` (`id_usuario`, `nombre`, `correo`, `usuario`, `contrasena`) VALUES
+(26, 'eider', 'barriosvviis44@gmail.com', 'eider21', '$2y$10$6eYPOs.6egeh9e8Gh5YuneO6TxPZVxjSYSuzcC4.KKMWTDcB19HHC'),
+(27, 'luis rambao', 'luisito@gmail.com', 'luisi24', '$2y$10$z/8ZnWK0OW1zlnq9s1z7Eu.SevDSGDcq2CjhWzvyAd5rQpIYtkGxK'),
+(29, 'MATEO MARTINEZ', 'mateito@gmail.com', 'sincelejo', '$2y$10$cdOIBri7OKff3TlwWIQVIesm/Ghnww5j6/ZyO/brpRp2TpD0AZieK'),
+(30, 'dana', 'dana@gmail.com', 'dana', '$2y$10$GiIRAuLJ3Gu/Z5/6hhNfK..WvzMVwRWVTuV30fWvN6cGHuzN.ZxIm'),
+(40, 'marolyn', 'maro@gmail.com', 'maro12', '$2y$10$HTA969fJ9mKxy18/FmseheSWQk/AujvF9Xc8Ico6Pw.ZHoE8ORfTq'),
+(41, 'll', 'll@gmail.com', 'llll', '$2y$10$7d7UEGQSo4knGjC1eSfzQe0T9zefpJ9S5/EY1b0lhBhWfn.jQh/O.'),
+(42, 'mateo', 'mateo@correo.com', 'mateo092', '$2y$10$4SseJusiOOure7n95Pd9HeLNW5VJP80v95lI3GAaNmPQnWjWolF3a'),
+(43, 'mateo', 'mateo@correo.com', 'mateo092', '$2y$10$21xL0Obb4CJT6h7ORIWy7e1V15pz5sYoll7Wf4XDqN83xi89LclQq');
 
 --
 -- Índices para tablas volcadas
@@ -187,7 +196,7 @@ ALTER TABLE `usuario`
 -- AUTO_INCREMENT de la tabla `acta`
 --
 ALTER TABLE `acta`
-  MODIFY `id_acta` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_acta` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de la tabla `compromiso`
@@ -205,13 +214,13 @@ ALTER TABLE `documento`
 -- AUTO_INCREMENT de la tabla `reunion`
 --
 ALTER TABLE `reunion`
-  MODIFY `id_reunion` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id_reunion` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT de la tabla `usuario`
 --
 ALTER TABLE `usuario`
-  MODIFY `id_usuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=42;
+  MODIFY `id_usuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=44;
 
 --
 -- Restricciones para tablas volcadas

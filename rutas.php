@@ -12,6 +12,7 @@ $routes = [
         '/actas/reuniones/(\d+)' => 'ActasControlador@getBYReunion',
         '/compromisos'=>'CompromisosControlador@index',
         '/compromisos/\d+)'=>'CompromisosControlador@show',
+        '/compromisos/acta/(\d+)' => 'CompromisosControlador@getBYActa',
     ],
     'POST' => [
         '/login' => 'AuthControlador@login',

@@ -55,7 +55,7 @@ class CompromisosControlador
     public function update($request,$id)
     {
         $compromiso = new Compromiso();
-        
+
         $compromiso->actualizarCompromiso(
             $request['descripcion'], 
             $request['fecha_limite'], 
@@ -80,6 +80,18 @@ class CompromisosControlador
         return json_encode([
             'status' => 200,
             'message' => 'Compromiso eliminado'
+        ]);
+    }
+    public function getBYActa ($requesr, $id_acta){
+
+        $compromiso = new Compromiso();
+        $compromisodata = $compromiso->getByActa($id_acta);
+
+        http_response_code(200);
+        return json_encode([
+            'status' => 200,
+            'message' => 'actas con ID: ' . $id_acta,
+            'data' => $compromisodata
         ]);
     }
 } 

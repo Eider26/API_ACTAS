@@ -39,7 +39,7 @@ class UsuariosControlador
         $usuario->registrarUsuario(
             $requestData['nombre'], 
             $requestData['correo'], 
-            $requestData['rol'],
+        
             $requestData['usuario'],
             $requestData['contraseña']
         );
@@ -51,10 +51,10 @@ class UsuariosControlador
         ]);
     }
 
-    public function update($nombre, $correo, $usuario, $contrasena, $rol)
+    public function update($nombre, $correo, $usuario, $contrasena)
     {
         $usuario = new Usuario();
-        $usuario->actualizarUsuario($nombre, $correo, $usuario, $contrasena, $rol);
+        $usuario->actualizarUsuario($nombre, $correo, $usuario, $contrasena);
 
         http_response_code(200);
         return json_encode([
